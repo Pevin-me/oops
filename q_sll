@@ -1,0 +1,103 @@
+Code: 
+#include <iostream> 
+using namespace std; 
+ 
+class Node { 
+public: 
+    int data; 
+    Node* next; 
+ 
+    Node(int value) { 
+        data = value; 
+        next = nullptr; 
+    } 
+}; 
+ 
+class Queue { 
+private: 
+    Node* front; 
+    Node* rear; 
+ 
+public: 
+    Queue() { 
+        front = nullptr; 
+        rear = nullptr; 
+    } 
+ 
+    void enqueue(int value) { 
+        Node* temp = new Node(value); 
+        if (rear == nullptr) { 
+            front = rear = temp; 
+        } else { 
+            rear->next = temp; 
+            rear = temp; 
+        } 
+        cout << "Inserted " << value << " into the queue." << endl; 
+    } 
+ 
+    bool search(int value) { 
+        Node* temp = front; 
+        while (temp != nullptr) { 
+            if (temp->data == value) { 
+                return true; 
+            } 
+            temp = temp->next; 
+        } 
+        return false; 
+    } 
+ 
+    void display() { 
+        if (front == nullptr) { 
+            cout << "Queue is empty." << endl; 
+            return; 
+        } 
+        Node* temp = front; 
+        while (temp != nullptr) { 
+            cout << temp->data << " "; 
+            temp = temp->next; 
+        } 
+        cout << endl; 
+    } 
+}; 
+ 
+int main() { 
+    Queue q; 
+    int choice, value; 
+ 
+    cout << "\nMenu:\n"; 
+    cout << "1. Insert an element into the queue\n"; 
+    cout << "2. Search for an element in the queue\n"; 
+    cout << "3. Display the queue\n"; 
+    cout << "4. Exit\n"; 
+ 
+    while (true) { 
+        cout << "Enter your choice: "; 
+        cin >> choice; 
+ 
+        switch (choice) { 
+            case 1: 
+                cout << "Enter the value to insert: "; 
+                cin >> value; 
+                q.enqueue(value); 
+                break; 
+            case 2: 
+                cout << "Enter the value to search: "; 
+                cin >> value; 
+                if (q.search(value)) { 
+                    cout << "Element found in the queue." << endl; 
+                } else { 
+                    cout << "Element not found in the queue." << endl; 
+                } 
+                break; 
+            case 3: 
+                q.display(); 
+                break; 
+            case 4: 
+                exit(0); 
+            default: 
+                cout << "Invalid choice. Please try again." << endl; 
+        } 
+    } 
+ 
+    return 0; 
+} 
